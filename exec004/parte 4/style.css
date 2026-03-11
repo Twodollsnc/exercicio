@@ -1,0 +1,488 @@
+/* ================================================
+   SELETOR DE CACHORROS — Estilo Editorial Quente
+   ================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+
+/* ---------- Variáveis ---------- */
+:root {
+  --bg:       #faf7f2;
+  --surface:  #ffffff;
+  --card:     #fffdf9;
+  --border:   #e8e0d4;
+  --border2:  #d4c8b8;
+  --brown:    #8b5c2a;
+  --brown2:   #6b4420;
+  --amber:    #d4850a;
+  --amber-lt: #f5a623;
+  --tan:      #c9a882;
+  --cream:    #f5ede0;
+  --text:     #2a2018;
+  --muted:    #8a7a68;
+  --white:    #ffffff;
+
+  --font-head: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --radius:    10px;
+  --shadow:    0 4px 24px rgba(100,60,20,.10);
+  --shadow-lg: 0 12px 48px rgba(100,60,20,.15);
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+header {
+  background: var(--brown2);
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 120% at 50% -20%, rgba(212,133,10,.25) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='.5' fill='%23ffffff' opacity='.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #f5ede0;
+  letter-spacing: 1px;
+  position: relative;
+  line-height: 1.1;
+}
+
+header h1 em {
+  color: var(--amber-lt);
+  font-style: italic;
+}
+
+header p {
+  color: rgba(245,237,224,.65);
+  font-size: .9rem;
+  margin-top: .5rem;
+  position: relative;
+  letter-spacing: .5px;
+}
+
+.header-paw {
+  font-size: 1.5rem;
+  margin-bottom: .5rem;
+  display: block;
+  position: relative;
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ============================================
+   PAINEL ESQUERDO — Formulário de seleção
+   ============================================ */
+.painel-form {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.form-card-header {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 1.5rem;
+}
+
+.form-card-header h2 {
+  font-family: var(--font-head);
+  font-size: 1.2rem;
+  color: var(--brown2);
+}
+
+.form-card-header p {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: .2rem;
+}
+
+.form-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Grupos de campo */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+
+.field-group label {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field-group select {
+  appearance: none;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: .92rem;
+  padding: .65rem .9rem;
+  padding-right: 2.2rem;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7a68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .9rem center;
+}
+
+.field-group select:focus {
+  border-color: var(--brown);
+  box-shadow: 0 0 0 3px rgba(139,92,42,.12);
+}
+
+.field-group select:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.field-group select.erro {
+  border-color: #c0392b;
+  animation: shake .3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-4px); }
+  75%       { transform: translateX(4px); }
+}
+
+/* Botão gerar */
+#btn-gerar {
+  width: 100%;
+  background: var(--brown2);
+  border: none;
+  border-radius: 6px;
+  color: #f5ede0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: .92rem;
+  letter-spacing: .5px;
+  padding: .8rem;
+  cursor: pointer;
+  transition: background .2s, transform .1s, box-shadow .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+#btn-gerar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.08), transparent);
+}
+
+#btn-gerar:hover {
+  background: var(--brown);
+  box-shadow: 0 4px 16px rgba(139,92,42,.35);
+  transform: translateY(-1px);
+}
+
+#btn-gerar:active { transform: translateY(0); }
+
+/* Aviso de herança */
+.heranca-info {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .9rem 1rem;
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.heranca-info strong { color: var(--brown); }
+
+.heranca-info code {
+  font-family: var(--font-mono);
+  background: rgba(139,92,42,.1);
+  padding: .1rem .3rem;
+  border-radius: 3px;
+  font-size: .75rem;
+  color: var(--brown2);
+}
+
+/* Console de logs */
+.console-wrap {
+  margin-top: 1.5rem;
+}
+
+.console-label {
+  font-size: .65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .4rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.console-label::before {
+  content: '●';
+  color: var(--amber);
+  font-size: .6rem;
+}
+
+#console-log {
+  background: #1e1a14;
+  border: 1px solid #3a3020;
+  border-radius: 6px;
+  padding: .75rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  line-height: 1.7;
+  color: #c8b898;
+  max-height: 160px;
+  overflow-y: auto;
+  min-height: 56px;
+}
+
+.log-linha { padding: .1rem 0; }
+.log-ts    { color: #5a5040; }
+.log-new   { color: #c8a458; }
+.log-str   { color: #88c07a; }
+.log-info  { color: #8ab8d8; }
+
+/* ============================================
+   PAINEL DIREITO — Resultado
+   ============================================ */
+/*.painel-resultado {}*/
+
+.card-resultado {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: none;
+}
+
+.card-resultado.visivel {
+  display: block;
+  animation: fade-up .4s ease;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Foto */
+.dog-foto-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+#dog-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease, opacity .3s;
+}
+
+.dog-foto-wrap:hover #dog-foto { transform: scale(1.03); }
+
+.foto-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(0deg, rgba(30,20,10,.55), transparent);
+  pointer-events: none;
+}
+
+/* Nome sobre a foto */
+#dog-nome {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.4rem;
+  font-family: var(--font-head);
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+  z-index: 2;
+}
+
+/* Corpo do card */
+.dog-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Descrição */
+#dog-descricao {
+  font-size: .92rem;
+  color: var(--muted);
+  line-height: 1.7;
+  border-left: 3px solid var(--tan);
+  padding-left: 1rem;
+}
+
+/* Atributos */
+.atribs-label {
+  font-size: .65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--border2);
+  margin-bottom: .6rem;
+}
+
+#dog-atributos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: .6rem;
+}
+
+.atrib {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .5rem .75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+
+.atrib-full {
+  grid-column: 1 / -1;
+}
+
+.atrib-label {
+  font-size: .6rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.atrib-val {
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.cor-badge {
+  color: var(--brown);
+}
+
+/* JSON */
+.json-label {
+  font-size: .65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--border2);
+  margin-bottom: .5rem;
+}
+
+#dog-json {
+  background: #1e1a14;
+  border: 1px solid #3a3020;
+  border-radius: 6px;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.j-key  { color: #c8a458; }
+.j-str  { color: #88c07a; }
+.j-num  { color: #78aed8; }
+.j-bool { color: #e07878; }
+.j-null { color: #5a5040; }
+
+/* Estado vazio (sem seleção ainda) */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+  gap: 1rem;
+}
+
+.empty-state .paw-icon { font-size: 3rem; opacity: .4; }
+.empty-state h3 { font-family: var(--font-head); font-size: 1.2rem; color: var(--border2); }
+.empty-state p  { font-size: .85rem; max-width: 280px; }
+
+/* ============================================
+   RESPONSIVO
+   ============================================ */
+@media (max-width: 800px) {
+  .page {
+    grid-template-columns: 1fr;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .painel-form { position: static; }
+
+  #dog-nome { font-size: 1.3rem; }
+
+  #dog-atributos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

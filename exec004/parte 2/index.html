@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Dados RPG</title>
+  <link rel="stylesheet" href=" style.css" />
+</head>
+<body>
+
+  <!-- ==================== CABEÇALHO ==================== -->
+  <header>
+    <h1>⚔ Simulador de Dados</h1>
+    <div class="header-rune">
+      <span>D6 · D8 · D20</span>
+    </div>
+  </header>
+
+  <!-- ==================== GRID DE DADOS ==================== -->
+  <div class="dados-grid">
+
+    <!-- ===== D6 — Cubo ===== -->
+    <div class="dado-card d6">
+      <div class="dado-label">D6</div>
+
+      <div class="dado-svg-wrap" id="wrap-d6">
+        <!--
+          D6: Cubo projetado em 2D — hexágono irregular + perspectiva.
+          Três faces visíveis simulam o cubo em 3/4.
+        -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Face topo -->
+          <polygon points="50,8 88,28 50,48 12,28"
+            fill="#2a2010" stroke="#c9973a" stroke-width="1.5"/>
+          <!-- Face esquerda -->
+          <polygon points="12,28 50,48 50,88 12,68"
+            fill="#1e1808" stroke="#c9973a" stroke-width="1.5"/>
+          <!-- Face direita -->
+          <polygon points="50,48 88,28 88,68 50,88"
+            fill="#241e0c" stroke="#c9973a" stroke-width="1.5"/>
+          <!-- Brilho sutil no topo -->
+          <polygon points="50,10 86,29 50,46 14,29"
+            fill="url(#shine-d6)" opacity=".25"/>
+          <!-- Número centralizado -->
+          <text id="num-d6" class="dado-num" x="50" y="54">—</text>
+
+          <defs>
+            <linearGradient id="shine-d6" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#ffffff" stop-opacity=".5"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="dado-range">1 – 6</div>
+      <div class="dado-historico" id="hist-d6"></div>
+    </div>
+
+    <!-- ===== D8 — Octaedro ===== -->
+    <div class="dado-card d8">
+      <div class="dado-label">D8</div>
+
+      <div class="dado-svg-wrap" id="wrap-d8">
+        <!--
+          D8: Octaedro (diamante) — 4 faces superiores + 4 inferiores.
+          Representação 2D com rombos sobrepostos.
+        -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Metade superior esquerda -->
+          <polygon points="50,8 14,50 50,50"
+            fill="#2e1408" stroke="#e05c20" stroke-width="1.5"/>
+          <!-- Metade superior direita -->
+          <polygon points="50,8 86,50 50,50"
+            fill="#3a1a0a" stroke="#e05c20" stroke-width="1.5"/>
+          <!-- Metade inferior esquerda -->
+          <polygon points="50,50 14,50 50,92"
+            fill="#200e04" stroke="#e05c20" stroke-width="1.5"/>
+          <!-- Metade inferior direita -->
+          <polygon points="50,50 86,50 50,92"
+            fill="#2a1208" stroke="#e05c20" stroke-width="1.5"/>
+          <!-- Linha de sombra divisória vertical -->
+          <line x1="50" y1="8" x2="50" y2="92"
+            stroke="#e05c20" stroke-width=".6" opacity=".4"/>
+          <!-- Número -->
+          <text id="num-d8" class="dado-num" x="50" y="54">—</text>
+        </svg>
+      </div>
+
+      <div class="dado-range">1 – 8</div>
+      <div class="dado-historico" id="hist-d8"></div>
+    </div>
+
+    <!-- ===== D20 — Icosaedro ===== -->
+    <div class="dado-card d20">
+      <div class="dado-label">D20</div>
+
+      <div class="dado-svg-wrap" id="wrap-d20">
+        <!--
+          D20: Icosaedro projetado — triângulos formando a face frontal.
+          Contorno externo + 5 triângulos internos visíveis.
+        -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Contorno externo do d20 (pentágono irregular) -->
+          <polygon
+            points="50,6 92,34 78,82 22,82 8,34"
+            fill="#0a2020" stroke="#3ab8b0" stroke-width="1.8"/>
+
+          <!-- Divisões internas — triângulos das faces -->
+          <!-- Topo central -->
+          <polygon points="50,6 34,38 66,38"
+            fill="#0c2828" stroke="#3ab8b0" stroke-width="1" opacity=".9"/>
+          <!-- Esquerda superior -->
+          <polygon points="8,34 34,38 22,62"
+            fill="#0a2222" stroke="#3ab8b0" stroke-width="1" opacity=".8"/>
+          <!-- Direita superior -->
+          <polygon points="92,34 66,38 78,62"
+            fill="#0c2c2c" stroke="#3ab8b0" stroke-width="1" opacity=".8"/>
+          <!-- Esquerda inferior -->
+          <polygon points="22,62 34,38 50,62"
+            fill="#081e1e" stroke="#3ab8b0" stroke-width="1" opacity=".7"/>
+          <!-- Direita inferior -->
+          <polygon points="78,62 66,38 50,62"
+            fill="#0a2424" stroke="#3ab8b0" stroke-width="1" opacity=".7"/>
+          <!-- Base -->
+          <polygon points="22,62 50,62 78,62 22,82"
+            fill="#061818" stroke="#3ab8b0" stroke-width="1" opacity=".6"/>
+
+          <!-- Brilho no topo -->
+          <polygon points="50,8 90,35 78,80 22,80 10,35"
+            fill="url(#shine-d20)" opacity=".12"/>
+
+          <!-- Número centralizado -->
+          <text id="num-d20" class="dado-num" x="50" y="54">—</text>
+
+          <defs>
+            <radialGradient id="shine-d20" cx="50%" cy="30%" r="60%">
+              <stop offset="0%"   stop-color="#ffffff" stop-opacity=".6"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="dado-range">1 – 20</div>
+      <div class="dado-historico" id="hist-d20"></div>
+    </div>
+
+  </div><!-- /dados-grid -->
+
+  <!-- ==================== BOTÃO PRINCIPAL ==================== -->
+  <div class="btn-area">
+    <button id="btn-girar">⚄ Girar Dados</button>
+
+    <div class="rune-divider">
+      <span>pressione espaço ou enter</span>
+    </div>
+  </div>
+
+  <!-- ==================== PAINEL DE TOTAL ==================== -->
+  <div class="painel-total">
+    <div class="total-label">Total dos Dados</div>
+    <div class="total-valor" id="total-valor">—</div>
+    <div class="total-breakdown" id="total-breakdown">Role os dados para ver o total</div>
+  </div>
+
+  <!-- ==================== SCRIPT ==================== -->
+  <script src="script.js"></script>
+
+</body>
+</html>

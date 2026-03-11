@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo da Forca</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==================== CABEÇALHO ==================== -->
+  <header>
+    <h1>JOGO DA FORCA</h1>
+    <p class="subtitle">Adivinhe a palavra antes de acabar as tentativas</p>
+    <span class="header-line"></span>
+  </header>
+
+  <!-- ==================== WRAPPER PRINCIPAL ==================== -->
+  <div class="game-wrapper">
+
+    <!-- ===== PAINEL ESQUERDO — Forca SVG ===== -->
+    <div class="panel-forca">
+
+      <!--
+        SVG DA FORCA
+        Estrutura: base, poste, viga, corda
+        Corpo do boneco: cabeça, tronco, braços, pernas
+        Cada parte tem id próprio para controle via JS
+      -->
+      <svg id="forca-svg" viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Estrutura da forca (sempre visível) -->
+        <line class="estrutura" x1="20"  y1="190" x2="160" y2="190" />  <!-- base -->
+        <line class="estrutura" x1="60"  y1="190" x2="60"  y2="20"  />  <!-- poste vertical -->
+        <line class="estrutura" x1="60"  y1="20"  x2="120" y2="20"  />  <!-- viga horizontal -->
+        <line class="estrutura" x1="120" y1="20"  x2="120" y2="45"  />  <!-- corda -->
+
+        <!-- Partes do boneco (ocultas por padrão via .parte) -->
+
+        <!-- 1. Cabeça -->
+        <circle id="cabeca"
+          class="parte cabeca corpo"
+          cx="120" cy="57" r="12" />
+
+        <!-- 2. Corpo (tronco) -->
+        <line id="corpo"
+          class="parte corpo"
+          x1="120" y1="69"
+          x2="120" y2="115" />
+
+        <!-- 3. Braço esquerdo -->
+        <line id="braco-esq"
+          class="parte corpo"
+          x1="120" y1="80"
+          x2="98"  y2="100" />
+
+        <!-- 4. Braço direito -->
+        <line id="braco-dir"
+          class="parte corpo"
+          x1="120" y1="80"
+          x2="142" y2="100" />
+
+        <!-- 5. Perna esquerda -->
+        <line id="perna-esq"
+          class="parte corpo"
+          x1="120" y1="115"
+          x2="100" y2="145" />
+
+        <!-- 6. Perna direita -->
+        <line id="perna-dir"
+          class="parte corpo"
+          x1="120" y1="115"
+          x2="140" y2="145" />
+
+      </svg>
+
+      <!-- Contador de erros -->
+      <div class="erro-contador">
+        Erros: <span id="erro-contador-num">0/6</span>
+      </div>
+
+      <!-- Categoria -->
+      <div class="categoria-badge" id="categoria-texto">—</div>
+
+    </div><!-- /panel-forca -->
+
+    <!-- ===== PAINEL DIREITO — Jogo ===== -->
+    <div class="panel-jogo">
+
+      <!-- Palavra com traços -->
+      <div class="palavra-wrap">
+        <div id="palavra-display">_ _ _ _ _</div>
+      </div>
+
+      <!-- Letras erradas -->
+      <div class="erradas-wrap">
+        <label>Letras erradas</label>
+        <div id="letras-erradas"></div>
+      </div>
+
+      <!-- Mensagem de fim de jogo -->
+      <div id="mensagem"></div>
+
+      <!-- Input de letra + botão -->
+      <div class="input-wrap">
+        <input
+          type="text"
+          id="letra-input"
+          maxlength="2"
+          placeholder="Digite uma letra ou use o teclado"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+        />
+        <button id="btn-enviar" class="btn-enviar">Enviar</button>
+      </div>
+
+      <!-- Teclado virtual -->
+      <div class="teclado-wrap">
+        <label>Teclado virtual</label>
+        <div id="teclado"></div>
+      </div>
+
+      <!-- Controles -->
+      <div class="controles">
+        <button id="btn-novo-jogo"      class="btn-novo-jogo">▶ Novo Jogo</button>
+        <button id="btn-palavra-custom" class="btn-palavra-custom">✎ Palavra Personalizada</button>
+      </div>
+
+    </div><!-- /panel-jogo -->
+
+  </div><!-- /game-wrapper -->
+
+  <!-- ==================== MODAL PALAVRA PERSONALIZADA ==================== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <h2>Palavra Personalizada</h2>
+      <p>
+        Peça para outro jogador digitar a palavra secreta.<br />
+        Ela ficará oculta para quem vai adivinhar.
+      </p>
+      <input
+        type="password"
+        id="custom-input"
+        maxlength="30"
+        placeholder="DIGITE A PALAVRA SECRETA"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div id="modal-erro"></div>
+      <div class="modal-btns">
+        <button id="btn-confirmar-modal" class="btn-confirmar-modal">Confirmar</button>
+        <button id="btn-cancelar-modal"  class="btn-cancelar-modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPT ==================== -->
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeria — Natura Lens</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid px-4">
+
+      <a class="navbar-brand" href="../index.html">
+        <img src="../img/imagem.svg" alt="Natura Lens Logo" class="logo-img" />
+        <span class="logo-text">Natura <span>Lens</span></span>
+      </a>
+
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+        <ul class="navbar-nav gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link active" href="galeria.html">Galeria</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ==================== CONTEÚDO ==================== -->
+  <main class="container-xl py-5">
+
+    <!-- Título -->
+    <div class="page-title fade-in">
+      <h1>Galeria Visual</h1>
+      <p class="text-muted-custom">Imagens e vídeos das nossas expedições pelos biomas brasileiros.</p>
+    </div>
+
+    <!-- 3 colunas iguais (Bootstrap row) -->
+    <div class="row g-4">
+
+      <!-- ===== COLUNA 1 — Floresta & Água ===== -->
+      <div class="col-12 col-md-6 col-lg-4 fade-in">
+        <h3 class="galeria-col-title">🌿 Floresta &amp; Água</h3>
+
+        <!-- Vídeo 1 -->
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ"
+                  title="Floresta Amazônica — Natureza"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        </div>
+
+        <!-- Imagem 1 -->
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=700&q=80"
+               alt="Floresta tropical exuberante" />
+          <span class="img-caption">Mata Atlântica — Serra do Mar</span>
+        </div>
+
+        <!-- Imagem 2 -->
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1439853949212-36089ec2f4ce?w=700&q=80"
+               alt="Cachoeira entre rochas" />
+          <span class="img-caption">Chapada Diamantina — BA</span>
+        </div>
+      </div>
+
+      <!-- ===== COLUNA 2 — Fauna ===== -->
+      <div class="col-12 col-md-6 col-lg-4 fade-in">
+        <h3 class="galeria-col-title">🦜 Fauna Brasileira</h3>
+
+        <!-- Vídeo 2 -->
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/W3yrAvvQDY0"
+                  title="Aves do Brasil — Documentário"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        </div>
+
+        <!-- Imagem 3 -->
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=700&q=80"
+               alt="Raposa olhando para a câmera" />
+          <span class="img-caption">Lobo-guará — Parque das Emas</span>
+        </div>
+
+        <!-- Imagem 4 -->
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=700&q=80"
+               alt="Borboleta colorida em flor" />
+          <span class="img-caption">Lepidóptera — Reserva Ecológica</span>
+        </div>
+      </div>
+
+      <!-- ===== COLUNA 3 — Paisagens ===== -->
+      <div class="col-12 col-md-6 col-lg-4 fade-in">
+        <h3 class="galeria-col-title">🌄 Paisagens &amp; Céus</h3>
+
+        <!-- Vídeo 3 -->
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/m6chqSpcmpM"
+                  title="Pantanal — Vida Selvagem"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        </div>
+
+        <!-- Imagem 5 -->
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=700&q=80"
+               alt="Céu estrelado sobre campo aberto" />
+          <span class="img-caption">Via Láctea — Cerrado Goiano</span>
+        </div>
+
+        <!-- Imagem 6 -->
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=700&q=80"
+               alt="Pôr do sol em campo aberto" />
+          <span class="img-caption">Pôr do sol — Pantanal Sul</span>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+
+  </main>
+
+  <!-- ==================== RODAPÉ ==================== -->
+  <footer>
+    <div class="container-xl">
+      <div class="row g-4 pb-2">
+
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a class="navbar-brand mb-2 d-inline-flex" href="../index.html">
+            <img src="../img/imagem.svg" alt="Logo" class="logo-img me-2" />
+            <span class="logo-text">Natura <span>Lens</span></span>
+          </a>
+          <p>Fotografia com propósito.</p>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+          <p><strong>Endereço</strong></p>
+          <p>Rua das Bromélias, 412 — Jardim Botânico</p>
+          <p>Curitiba – PR, 80210-130</p>
+          <p class="mt-2"><strong>Telefone</strong></p>
+          <p>(41) 3890-5572</p>
+          <p>(41) 99204-1138</p>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+          <p><strong>Navegação</strong></p>
+          <nav>
+            <a href="../index.html">Início</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="galeria.html">Galeria</a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+    <div class="footer-copy">
+      &copy; <span class="current-year"></span> Natura Lens — Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

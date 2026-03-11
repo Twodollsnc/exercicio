@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natura Lens — Fotografia de Natureza</title>
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Estilos visuais do projeto -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ==================== NAVBAR (Bootstrap) ==================== -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid px-4">
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="index.html">
+        <img src="img/imagem.svg" alt="Natura Lens Logo" class="logo-img" />
+        <span class="logo-text">Natura <span>Lens</span></span>
+      </a>
+
+      <!-- Botão hamburguer (mobile) -->
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links (colapsável) -->
+      <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+        <ul class="navbar-nav gap-lg-1">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="html/sobre.html">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="html/galeria.html">Galeria</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <h1>Natureza em Foco</h1>
+    <p class="mt-3">Capturando a beleza efêmera do mundo natural através de uma lente honesta.</p>
+  </section>
+
+  <!-- ==================== CONTEÚDO PRINCIPAL ==================== -->
+  <main class="container-xl py-5">
+    <div class="row g-4">
+
+      <!-- ===== COLUNA 1 — Texto (3/12) ===== -->
+      <aside class="col-12 col-md-6 col-lg-3 fade-in">
+        <span class="tag">Editorial</span>
+        <h2 class="section-title">A Arte de Observar</h2>
+        <p class="text-muted-custom">
+          A fotografia de natureza exige paciência, silêncio e presença. Cada imagem é o resultado
+          de horas esperando a luz certa, o movimento perfeito, o instante que nunca se repete.
+        </p>
+        <p class="text-muted-custom">
+          Desde florestas temperadas até mangues tropicais, nosso portfólio percorre os biomas mais
+          expressivos do Brasil — do Cerrado à Mata Atlântica, da Caatinga à Amazônia.
+        </p>
+        <p class="text-muted-custom">
+          Acreditamos que uma fotografia poderosa pode mudar percepções e despertar o senso de
+          responsabilidade ambiental em quem a observa.
+        </p>
+        <hr class="divider" />
+        <span class="tag">Últimas</span>
+        <h2 class="section-title mt-2">Expedição 2025</h2>
+        <p class="text-muted-custom">
+          Documentamos a transição entre a estação seca e chuvosa no Pantanal ao longo de 21 dias,
+          registrando mais de 4.000 imagens do maior bioma alagado do planeta.
+        </p>
+      </aside>
+
+      <!-- ===== COLUNA 2 — Centro: galeria + form (6/12) ===== -->
+      <section class="col-12 col-md-12 col-lg-6 fade-in">
+
+        <!-- Galeria 2×2 -->
+        <div class="gallery-grid">
+          <figure>
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80"
+                 alt="Floresta verde densa vista de cima" />
+          </figure>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&q=80"
+                 alt="Veado na floresta ao entardecer" />
+          </figure>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=600&q=80"
+                 alt="Raios de sol entre árvores" />
+          </figure>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80"
+                 alt="Lago ao amanhecer com névoa" />
+          </figure>
+        </div>
+
+        <!-- Formulário de Cadastro -->
+        <div class="form-card fade-in">
+          <h3>Receba Nossa Newsletter</h3>
+          <form id="cadastroForm">
+
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome completo</label>
+              <input type="text" id="nome" name="nome" class="form-control" placeholder="Seu nome" />
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">E-mail</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="seu@email.com" />
+            </div>
+
+            <div class="form-check mb-3">
+              <input type="checkbox" id="aceite" name="aceite" class="form-check-input" />
+              <label for="aceite" class="form-check-label">
+                Confirmo que desejo receber conteúdos sobre fotografia de natureza e aceito a
+                <a href="#">política de privacidade</a>.
+              </label>
+            </div>
+
+            <button type="submit" class="btn-natura">Cadastrar</button>
+          </form>
+        </div>
+
+      </section>
+
+      <!-- ===== COLUNA 3 — Lateral (3/12) ===== -->
+      <aside class="col-12 col-md-6 col-lg-3 fade-in">
+        <span class="tag">Destaques</span>
+        <h2 class="section-title">Recentes</h2>
+
+        <div class="side-card">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80"
+               alt="Trilha na floresta" />
+          <p class="text-muted-custom mb-0">Trilhas do sul da Bahia — Reserva da Biosfera da Mata Atlântica.</p>
+        </div>
+
+        <div class="side-card">
+          <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=400&q=80"
+               alt="Cachorro do mato na grama" />
+          <p class="text-muted-custom mb-0">Fauna do Cerrado — espécies ameaçadas em foco.</p>
+        </div>
+
+        <hr class="divider" />
+        <h2 class="section-title">Equipamentos</h2>
+        <p class="text-muted-custom">Canon EOS R5 · RF 100–500mm · RF 15–35mm · Tripé carbono Gitzo</p>
+        <p class="text-muted-custom">Pós-processamento com Lightroom Classic e Capture One.</p>
+      </aside>
+
+    </div><!-- /row -->
+  </main>
+
+  <!-- ==================== RODAPÉ ==================== -->
+  <footer>
+    <div class="container-xl">
+      <div class="row g-4 pb-2">
+
+        <!-- Marca -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a class="navbar-brand mb-2 d-inline-flex" href="index.html">
+            <img src="img/imagem.svg" alt="Logo" class="logo-img me-2" />
+            <span class="logo-text">Natura <span>Lens</span></span>
+          </a>
+          <p>Fotografia com propósito.</p>
+        </div>
+
+        <!-- Contato -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <p><strong>Endereço</strong></p>
+          <p>Rua das Bromélias, 412 — Jardim Botânico</p>
+          <p>Curitiba – PR, 80210-130</p>
+          <p class="mt-2"><strong>Telefone</strong></p>
+          <p>(41) 3890-5572</p>
+          <p>(41) 99204-1138</p>
+        </div>
+
+        <!-- Navegação -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <p><strong>Navegação</strong></p>
+          <nav>
+            <a href="index.html">Início</a>
+            <a href="html/sobre.html">Sobre</a>
+            <a href="html/galeria.html">Galeria</a>
+          </nav>
+        </div>
+
+      </div><!-- /row -->
+    </div>
+
+    <div class="footer-copy">
+      &copy; <span class="current-year"></span> Natura Lens — Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

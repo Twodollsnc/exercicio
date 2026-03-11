@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Par ou Ímpar</title>
+</head> 
+<body>
+
+<h1>Jogo de Par ou Ímpar</h1>
+
+<p>Escolha:</p>
+<select id="escolha">
+    <option value="par">Par</option>
+    <option value="impar">Ímpar</option>
+</select>
+
+<p>Digite um número de 1 a 9:</p>
+<input type="number" id="numero">
+
+<button id="verificarBotao">Jogar</button>
+
+<p id="resultado"></p>
+
+<script>
+
+document.getElementById("verificarBotao").addEventListener("click", function() {
+
+    let numeroJogador = parseInt(document.getElementById("numero").value)
+    let escolha = document.getElementById("escolha").value
+    let resultado = document.getElementById("resultado")
+
+    if (isNaN(numeroJogador) || numeroJogador < 1 || numeroJogador > 9){
+        resultado.innerText = "Digite um número entre 1 e 9"
+        return
+    }
+
+    // número aleatório do computador
+    let numeroComputador = Math.floor(Math.random() * 9) + 1
+
+    let soma = numeroJogador + numeroComputador
+
+    let tipo = (soma % 2 === 0) ? "par" : "impar"
+
+    if (tipo === escolha){
+        resultado.innerText = "Computador jogou " + numeroComputador + 
+        ". Soma = " + soma + ". Você venceu!"
+    } else {
+        resultado.innerText = "Computador jogou " + numeroComputador + 
+        ". Soma = " + soma + ". Você perdeu!"
+    }
+
+})
+
+</script>
+
+</body>
+</html>

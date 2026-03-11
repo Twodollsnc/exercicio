@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro com Verificação de Idade</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Syne:wght@400;600;700&display=swap');
+
+    :root {
+      --bg:      #0e1117;
+      --surface: #161b24;
+      --card:    #1d2535;
+      --border:  #2a3448;
+      --blue:    #4f9cf9;
+      --green:   #34d399;
+      --red:     #f87171;
+      --yellow:  #fbbf24;
+      --muted:   #64748b;
+      --text:    #e2e8f0;
+      --white:   #f8fafc;
+      --mono:    'Fira Code', monospace;
+      --sans:    'Syne', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ---- Header ---- */
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      width: 100%;
+      max-width: 780px;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 1px;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-top: .4rem;
+      font-family: var(--mono);
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 1.2rem 0;
+    }
+
+    /* ---- Botão iniciar ---- */
+    #btn-iniciar {
+      background: var(--blue);
+      border: none;
+      border-radius: 6px;
+      color: #0e1117;
+      font-family: var(--sans);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: .75rem 2.5rem;
+      cursor: pointer;
+      margin-bottom: 2rem;
+      transition: background .2s, transform .1s, box-shadow .2s;
+      box-shadow: 0 0 20px rgba(79,156,249,.3);
+    }
+
+    #btn-iniciar:hover  { background: #7ab8ff; transform: translateY(-2px); }
+    #btn-iniciar:active { transform: translateY(0); }
+    #btn-iniciar:disabled { opacity: .4; cursor: default; transform: none; box-shadow: none; }
+
+    /* ---- Cards de usuário ---- */
+    .usuarios-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .usuario-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+      display: none;
+      flex-direction: column;
+      gap: .6rem;
+      animation: slide-in .3s ease;
+    }
+
+    .usuario-card.visivel { display: flex; }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .card-num {
+      background: var(--border);
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .card-nome {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .status-badge {
+      margin-left: auto;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: .2rem .65rem;
+      border-radius: 3px;
+    }
+
+    .status-badge.ok    { background: rgba(52,211,153,.15); color: var(--green); border: 1px solid rgba(52,211,153,.3); }
+    .status-badge.negado { background: rgba(248,113,113,.15); color: var(--red);   border: 1px solid rgba(248,113,113,.3); }
+
+    .card-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: .4rem;
+    }
+
+    .info-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: .4rem .7rem;
+    }
+
+    .info-item .label {
+      font-size: .6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    .info-item .valor {
+      font-family: var(--mono);
+      font-size: .88rem;
+      color: var(--text);
+      margin-top: .1rem;
+      word-break: break-all;
+    }
+
+    .info-item .valor.senha-val { letter-spacing: 2px; color: var(--muted); }
+    .info-item .valor.idade-ok  { color: var(--green); }
+    .info-item .valor.idade-neg { color: var(--red);   }
+
+    .card-mensagem {
+      font-size: .85rem;
+      padding: .5rem .9rem;
+      border-radius: 4px;
+      border-left: 3px solid;
+    }
+    .card-mensagem.ok    { background: rgba(52,211,153,.07); border-color: var(--green); color: var(--green); }
+    .card-mensagem.negado { background: rgba(248,113,113,.07); border-color: var(--red);   color: var(--red);   }
+
+    /* ---- Painel JSON ---- */
+    .json-painel {
+      width: 100%;
+      max-width: 780px;
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    .json-painel.visivel { display: block; animation: slide-in .4s ease; }
+
+    .json-painel h2 {
+      font-size: .75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .75rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .json-painel h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .json-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      font-family: var(--mono);
+      font-size: .82rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text);
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* Syntax highlight manual */
+    .j-key   { color: #93c5fd; }
+    .j-str   { color: #86efac; }
+    .j-num   { color: #fbbf24; }
+    .j-bool  { color: #f9a8d4; }
+    .j-null  { color: var(--muted); }
+
+    .json-copy {
+      margin-top: .6rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    #btn-copiar {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .72rem;
+      padding: .35rem .9rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    #btn-copiar:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ---- Rodapé de info ---- */
+    .info-footer {
+      display: none;
+      width: 100%;
+      max-width: 780px;
+      margin-top: 1rem;
+      background: rgba(79,156,249,.07);
+      border: 1px solid rgba(79,156,249,.2);
+      border-radius: 6px;
+      padding: .75rem 1.1rem;
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--blue);
+    }
+
+    .info-footer.visivel { display: block; animation: slide-in .3s ease; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📋 Cadastro com Verificação de Idade</h1>
+    <p>Testa 3 usuários · verifica maioridade · gera JSON</p>
+    <div class="divider"></div>
+  </header>
+
+  <button id="btn-iniciar">▶ Iniciar Cadastro (3 usuários)</button>
+
+  <!-- Cards dos usuários -->
+  <div class="usuarios-grid" id="usuarios-grid">
+    <!-- Preenchido dinamicamente pelo JS -->
+  </div>
+
+  <!-- Painel JSON -->
+  <div class="json-painel" id="json-painel">
+    <h2>📦 JSON gerado</h2>
+    <div class="json-box" id="json-box"></div>
+    <div class="json-copy">
+      <button id="btn-copiar">⎘ Copiar JSON</button>
+    </div>
+  </div>
+
+  <!-- Rodapé informativo -->
+  <div class="info-footer" id="info-footer"></div>
+
+  <!-- ============================================================ -->
+  <!-- SCRIPT PRINCIPAL                                              -->
+  <!-- ============================================================ -->
+  <script>
+    'use strict';
+
+    // ── Constantes ──────────────────────────────────────────────
+    const ANO_ATUAL      = new Date().getFullYear();
+    const IDADE_MINIMA   = 18;
+    const MAX_USUARIOS   = 3;
+
+    // ── Armazenamento ───────────────────────────────────────────
+    const cadastros = [];
+
+    // ── Referências DOM ─────────────────────────────────────────
+    const btnIniciar  = document.getElementById('btn-iniciar');
+    const grid        = document.getElementById('usuarios-grid');
+    const jsonPainel  = document.getElementById('json-painel');
+    const jsonBox     = document.getElementById('json-box');
+    const btnCopiar   = document.getElementById('btn-copiar');
+    const infoFooter  = document.getElementById('info-footer');
+
+    // ── Utilitários ─────────────────────────────────────────────
+
+    function calcularIdade(ano) {
+      return ANO_ATUAL - ano;
+    }
+
+    function anoValido(ano) {
+      return Number.isInteger(ano) && ano >= 1900 && ano <= ANO_ATUAL;
+    }
+
+    function pedirNome(num) {
+      let nome = '';
+      do {
+        nome = (prompt(`[Usuário ${num}/${MAX_USUARIOS}]\n👤 Digite seu nome completo:`) || '').trim();
+        if (!nome) alert('⚠️ O nome não pode ser vazio. Tente novamente.');
+      } while (!nome);
+      return nome;
+    }
+
+    function pedirAno(num, nome) {
+      let ano;
+      do {
+        const entrada = prompt(`[Usuário ${num}/${MAX_USUARIOS} — ${nome}]\n📅 Digite seu ano de nascimento (ex: 1990):`);
+        ano = parseInt(entrada, 10);
+        if (!anoValido(ano)) alert(`⚠️ Ano inválido. Informe um ano entre 1900 e ${ANO_ATUAL}.`);
+      } while (!anoValido(ano));
+      return ano;
+    }
+
+    function pedirUsername(num, nome) {
+      let u = '';
+      do {
+        u = (prompt(`[Usuário ${num}/${MAX_USUARIOS} — ${nome}]\n🔑 Escolha um nome de usuário (mín. 3 caracteres):`) || '').trim();
+        if (u.length < 3) alert('⚠️ Username deve ter ao menos 3 caracteres.');
+      } while (u.length < 3);
+      return u;
+    }
+
+    function pedirSenha(num, nome) {
+      let s = '';
+      do {
+        s = (prompt(`[Usuário ${num}/${MAX_USUARIOS} — ${nome}]\n🔒 Escolha uma senha (mín. 6 caracteres):`) || '').trim();
+        if (s.length < 6) alert('⚠️ Senha deve ter ao menos 6 caracteres.');
+      } while (s.length < 6);
+      return s;
+    }
+
+    // ── Renderizar card de usuário ───────────────────────────────
+
+    function renderCard(num, dados) {
+      const { nome, anoNascimento, idade, username, senha, autorizado } = dados;
+
+      const card = document.createElement('div');
+      card.className = 'usuario-card visivel';
+
+      const infosHTML = autorizado
+        ? `
+          <div class="info-item">
+            <div class="label">Ano de Nasc.</div>
+            <div class="valor">${anoNascimento}</div>
+          </div>
+          <div class="info-item">
+            <div class="label">Idade</div>
+            <div class="valor idade-ok">${idade} anos ✓</div>
+          </div>
+          <div class="info-item">
+            <div class="label">Username</div>
+            <div class="valor">${username}</div>
+          </div>
+          <div class="info-item">
+            <div class="label">Senha</div>
+            <div class="valor senha-val">••••••</div>
+          </div>`
+        : `
+          <div class="info-item">
+            <div class="label">Ano de Nasc.</div>
+            <div class="valor">${anoNascimento}</div>
+          </div>
+          <div class="info-item">
+            <div class="label">Idade</div>
+            <div class="valor idade-neg">${idade} anos ✗</div>
+          </div>`;
+
+      const mensagem = autorizado
+        ? `✅ Bem-vindo(a), ${nome}! Cadastro realizado com sucesso.`
+        : `🚫 Acesso negado. ${nome} tem ${idade} anos e não atingiu a idade mínima de ${IDADE_MINIMA} anos.`;
+
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-num">${num}</div>
+          <div class="card-nome">${nome}</div>
+          <span class="status-badge ${autorizado ? 'ok' : 'negado'}">
+            ${autorizado ? 'Cadastrado' : 'Negado'}
+          </span>
+        </div>
+        <div class="card-info">${infosHTML}</div>
+        <div class="card-mensagem ${autorizado ? 'ok' : 'negado'}">${mensagem}</div>
+      `;
+
+      grid.appendChild(card);
+    }
+
+    // ── Syntax highlight simples para JSON ──────────────────────
+
+    function highlightJSON(json) {
+      return json
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
+          if (/^"/.test(match)) {
+            if (/:$/.test(match)) return `<span class="j-key">${match}</span>`;
+            return `<span class="j-str">${match}</span>`;
+          }
+          if (/true|false/.test(match)) return `<span class="j-bool">${match}</span>`;
+          if (/null/.test(match))       return `<span class="j-null">${match}</span>`;
+          return `<span class="j-num">${match}</span>`;
+        });
+    }
+
+    // ── Fluxo principal ─────────────────────────────────────────
+
+    function cadastrarUsuario(num) {
+      const nome          = pedirNome(num);
+      const anoNascimento = pedirAno(num, nome);
+      const idade         = calcularIdade(anoNascimento);
+
+      let dadosUsuario;
+
+      if (idade >= IDADE_MINIMA) {
+        // Maior de idade
+        alert(`🎉 Bem-vindo(a), ${nome}!\nVocê tem ${idade} anos. Prossiga com o cadastro.`);
+
+        const username = pedirUsername(num, nome);
+        const senha    = pedirSenha(num, nome);
+
+        dadosUsuario = {
+          nome,
+          anoNascimento,
+          idade,
+          username,
+          senha,
+          autorizado:   true,
+          cadastradoEm: new Date().toISOString(),
+        };
+
+        cadastros.push(dadosUsuario);
+        alert(`✅ Cadastro concluído!\nUsuário: ${username}`);
+
+      } else {
+        // Menor de idade
+        alert(
+          `🚫 Acesso negado, ${nome}.\n` +
+          `Você tem ${idade} anos e não atingiu a idade mínima de ${IDADE_MINIMA} anos.`
+        );
+
+        dadosUsuario = {
+          nome,
+          anoNascimento,
+          idade,
+          username:     null,
+          senha:        null,
+          autorizado:   false,
+          cadastradoEm: null,
+        };
+      }
+
+      // Renderiza o card na tela
+      renderCard(num, dadosUsuario);
+
+      // Log no console
+      console.log(`\n── Usuário ${num}: ${nome} ──`);
+      console.log(dadosUsuario);
+
+      return dadosUsuario;
+    }
+
+    // ── Exibir JSON ─────────────────────────────────────────────
+
+    function exibirJSON() {
+      if (cadastros.length === 0) {
+        infoFooter.textContent = 'ℹ️ Nenhum usuário maior de idade foi cadastrado. JSON não gerado.';
+        infoFooter.classList.add('visivel');
+        return;
+      }
+
+      // Converte para JSON formatado
+      const json = JSON.stringify(cadastros, null, 2);
+
+      console.log('\n── JSON gerado (JSON.stringify) ──');
+      console.log(json);
+
+      // Verifica a desserialização
+      const recuperado = JSON.parse(json);
+      console.log('\n── Objeto recuperado (JSON.parse) ──');
+      console.log(recuperado);
+
+      // Exibe com highlight
+      jsonBox.innerHTML = highlightJSON(json);
+      jsonPainel.classList.add('visivel');
+
+      infoFooter.innerHTML =
+        `✅ <strong>${cadastros.length}</strong> usuário(s) cadastrado(s) · ` +
+        `JSON.stringify() aplicado · Veja o console (F12) para detalhes completos.`;
+      infoFooter.classList.add('visivel');
+    }
+
+    // ── Evento do botão ─────────────────────────────────────────
+
+    btnIniciar.addEventListener('click', () => {
+      btnIniciar.disabled = true;
+      grid.innerHTML = '';
+      cadastros.length = 0;
+
+      alert(
+        `📋 SISTEMA DE CADASTRO\n\n` +
+        `Serão coletados dados de ${MAX_USUARIOS} usuários.\n` +
+        `• Maiores de ${IDADE_MINIMA} anos → cadastro completo\n` +
+        `• Menores de ${IDADE_MINIMA} anos → acesso negado\n\n` +
+        `Clique OK para começar.`
+      );
+
+      // Testa os 3 usuários sequencialmente
+      for (let i = 1; i <= MAX_USUARIOS; i++) {
+        cadastrarUsuario(i);
+      }
+
+      // Exibe JSON ao final
+      exibirJSON();
+    });
+
+    // ── Copiar JSON ──────────────────────────────────────────────
+
+    btnCopiar.addEventListener('click', () => {
+      const json = JSON.stringify(cadastros, null, 2);
+      navigator.clipboard.writeText(json).then(() => {
+        btnCopiar.textContent = '✓ Copiado!';
+        setTimeout(() => btnCopiar.textContent = '⎘ Copiar JSON', 2000);
+      }).catch(() => {
+        btnCopiar.textContent = 'Erro ao copiar';
+      });
+    });
+  </script>
+
+</body>
+</html>

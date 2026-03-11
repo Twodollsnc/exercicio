@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Cachorros — Herança JS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <span class="header-paw">🐾</span>
+    <h1>Gerador de <em>Cachorros</em></h1>
+    <p>Herança de classes JavaScript · Animal → Cachorro</p>
+  </header>
+
+  <!-- ==================== LAYOUT ==================== -->
+  <div class="page">
+
+    <!-- ===== PAINEL ESQUERDO — Formulário ===== -->
+    <aside class="painel-form">
+
+      <!-- Card de seleção -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <h2>Configure seu Cachorro</h2>
+          <p>Escolha a raça e a cor para gerar o objeto</p>
+        </div>
+
+        <div class="form-body">
+
+          <!-- Select Raça -->
+          <div class="field-group">
+            <label for="sel-raca">Raça</label>
+            <select id="sel-raca">
+              <option value="">— Selecione uma raça —</option>
+              <!-- Populado via JS a partir do JSON -->
+            </select>
+          </div>
+
+          <!-- Select Cor -->
+          <div class="field-group">
+            <label for="sel-cor">Cor da Pelagem</label>
+            <select id="sel-cor" disabled>
+              <option value="">— Selecione uma cor —</option>
+              <!-- Populado via JS conforme a raça -->
+            </select>
+          </div>
+
+          <!-- Botão -->
+          <button id="btn-gerar">🐕 Gerar Cachorro</button>
+
+          <!-- Info sobre herança -->
+          <div class="heranca-info">
+            <strong>Herança de Classes:</strong><br/>
+            <code>Animal</code> (patas, olhos)<br/>
+            ↳ <code>Cachorro</code> extends <code>Animal</code> (raça, cor)<br/>
+            Cada clique instancia um <code>new Cachorro()</code>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Console de logs -->
+      <div class="console-wrap">
+        <div class="console-label">Console</div>
+        <div id="console-log">
+          <div class="log-linha" style="color:#5a5040">
+            // Aguardando instâncias...
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ===== PAINEL DIREITO — Resultado ===== -->
+    <main class="painel-resultado">
+
+      <!-- Estado vazio (antes da primeira seleção) -->
+      <div class="empty-state" id="empty-state">
+        <div class="paw-icon">🐾</div>
+        <h3>Nenhum cachorro gerado</h3>
+        <p>Selecione uma raça e cor ao lado para criar um objeto <strong>Cachorro</strong>.</p>
+      </div>
+
+      <!-- Card de resultado (oculto inicialmente) -->
+      <div class="card-resultado oculto" id="card-resultado">
+
+        <!-- Foto do cachorro -->
+        <div class="dog-foto-wrap">
+          <img id="dog-foto" src="" alt="" />
+          <div class="foto-overlay"></div>
+          <h2 id="dog-nome"></h2>
+        </div>
+
+        <!-- Corpo do card -->
+        <div class="dog-body">
+
+          <!-- Descrição -->
+          <p id="dog-descricao"></p>
+
+          <!-- Atributos da instância -->
+          <div>
+            <div class="atribs-label">Atributos do Objeto <code style="font-family:inherit;font-size:.6rem;background:var(--cream);padding:.1rem .3rem;border-radius:3px;color:var(--brown)">instanceof Cachorro</code></div>
+            <div id="dog-atributos"></div>
+          </div>
+
+          <!-- JSON do objeto -->
+          <div>
+            <div class="json-label">JSON.stringify( cachorro.toJSON() )</div>
+            <pre id="dog-json"></pre>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div><!-- /page -->
+
+  <script src="main.js"></script>
+
+  <!-- Esconde empty-state quando o card aparecer -->
+  <script>
+    document.getElementById('btn-gerar').addEventListener('click', () => {
+      // Pequeno delay para aguardar a validação no main.js
+      setTimeout(() => {
+        const card = document.getElementById('card-resultado');
+        if (card.classList.contains('visivel')) {
+          document.getElementById('empty-state').style.display = 'none';
+        }
+      }, 50);
+    });
+  </script>
+
+</body>
+</html>
